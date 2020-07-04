@@ -1,0 +1,22 @@
+<div class="container pb-4 mb-4">
+  <h2 class="display-4 mt-4 mb-4" >📖 How to read a single paper?</h2>
+  <ol class="list-group list-group-flush mb-4 pb-4">
+    <li class="list-group-item">1. During first read focus on the title, abstract and figures </li>
+    <li class="list-group-item">2. During the second read, try to read more sections. For example, taking a look to the introduction, and conclusions is a good idea </li>
+    <li class="list-group-item">3. Read the whole sections, but skipping maths and complex concepts that you don't actually need. </li>
+    <li class="list-group-item">4. Finally, If you are doing research on a specific field and you think that the math can be useful read and try to understand it </li>
+  </ol>
+  
+  <h2 class="display-4 mt-4 mb-4" >📖 How to gain knowledge about a specific field?</h2>
+  <ol class="list-group list-group-flush mb-4 pb-4">
+    <li class="list-group-item">1. Assemble collections of resources that focus on the subject matter. Resources can come in the form of research papers, blog posts, videos, GitHub repository etc. When starting a new research topic, create a new <b>Project</b> in this web page below.</li>
+    <li class="list-group-item">2. Evaluate each resource and decide if it is worth to study or not. Read or visualize each resource according to the above instructions and for each studied resource, add it to within a Project by clicking the <b>Add Paper</b> button inside a project.</li>
+    <li class="list-group-item">3. As you keep reading, update the knowledge level for each resource. </li>
+    <li class="list-group-item">4. As you go over your resources, you will become more comfortable with the field, meaning that you are earning knowledge and new abilities 🎉 </li>
+  </ol>
+  
+  <h1 class="display-4">✨ Projects</h1>
+  <div class="projects-container mt-4 row" style="width: 100%;">
+    <app-project-card [project]="p" style="width: 100%;" *ngFor="let p of projects"></app-project-card>
+  </div>
+</div>
