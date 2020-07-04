@@ -14,8 +14,4 @@ export class ProjectCardComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  get projectId() {
-    return this.project?.name.toLowerCase().replace(/ /g, '-');
-  }
 }

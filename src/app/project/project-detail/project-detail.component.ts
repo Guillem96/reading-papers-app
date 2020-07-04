@@ -1,6 +1,7 @@
 import { Component, OnInit  } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectsService } from 'src/app/projects.service';
+import { ProjectInfo } from 'src/app/models/project';
 
 @Component({
   selector: 'app-project-detail',
@@ -9,17 +10,12 @@ import { ProjectsService } from 'src/app/projects.service';
 })
 export class ProjectDetailComponent implements OnInit {
 
-  public project: any = null;
+  public project: ProjectInfo = null;
   private sub: any;
 
   constructor(
     private projectService: ProjectsService,
-    private route: ActivatedRoute,
-    private router: Router) { }
-  
-  get projectId() {
-    return this.project?.name.toLowerCase().replace(/ /g, '-');
-  }
+    private route: ActivatedRoute) { }
   
   ngOnInit(): void {
     this.sub = this.route
@@ -28,6 +24,18 @@ export class ProjectDetailComponent implements OnInit {
         console.log(params);
         this.project = this.projectService.getProjectData(params['project-id']);
       });
+  }
+
+  public getIndex(index) {
+    return index;
+  }
+  public deletePaper(paperPos:number, sectionPos: number) {  
+    this.project.sections[sectionPos].papers.splice(paperPos, 1);
+    if (this.project.sections[sectionPos].papers.length === 0) {
+      this.project.sections.splice(sectionPos, 1);
+    }
+    this.project = this.project.clone();
+    this.projectService.saveProject(this.project);
   }
 
   public trimName(name: string): string {
@@ -52,7 +60,7 @@ export class ProjectDetailComponent implements OnInit {
         this.project.sections[sectionPos].papers[paperPos].understanding[i] = target.checked;
       }
     }
-    this.project = JSON.parse(JSON.stringify(this.project));
+    this.project = this.project.clone();
     this.projectService.saveProject(this.project);
   }
 

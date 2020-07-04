@@ -1,4 +1,5 @@
-<div class="container">
+<div class="container mb-4 pb-4 pt-4">
+  <h1 class="display-4 project-title mb-4">{{project?.name}}</h1>
   <div *ngIf="project !== null && project.sections.length === 0">
     <h3 class="display-4 text-muted">Wow! Such empty. Add your first paper</h3>
   </div>
@@ -18,14 +19,19 @@
       <tbody>
         <tr *ngFor="let p of s.papers; let pi = index">
           <td><a href={{p.link}}>{{trimName(p.name)}}</a></td>
-          <td *ngFor="let u of p.understanding; let i = index" class="text-right">
+          <td *ngFor="let u of p.understanding; let i = index;  trackBy: getIndex" class="text-right">
             <input type="checkbox" class="text-right form-check-input" [checked]="u"
-              id="section-{{si}}-paper-{{pi}}-{{i}}-checkbox" (click)="updateCheckboxes($event, pi, si)">
+              name="section-{{si}}-paper-{{pi}}-{{i}}-checkbox" id="section-{{si}}-paper-{{pi}}-{{i}}-checkbox" (click)="updateCheckboxes($event, pi, si)">
+          </td>
+          <td class="text-right">
+            <button class="btn-sm btn btn-outline btn-outline-danger"
+              (click)="deletePaper(pi, si)">Delete
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <a [routerLink]="['/add-resource']" [queryParams]="{ 'project-id': projectId }" class="btn btn-outline-primary">Add resource</a>
+  <a [routerLink]="['/add-resource']" [queryParams]="{ 'project-id': project.projectId }" class="btn btn-outline-primary">Add resource</a>
 </div>

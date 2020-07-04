@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectsService } from './../../../projects.service';
+import { ProjectInfo } from 'src/app/models/project';
 
 @Component({
   selector: 'app-add-resource',
@@ -9,7 +10,7 @@ import { ProjectsService } from './../../../projects.service';
 })
 export class AddResourceComponent implements OnInit {
 
-  public project: any = null;
+  public project: ProjectInfo = null;
   public sections: string[] = [];
   private sub: any;
   public name: string;
@@ -20,10 +21,6 @@ export class AddResourceComponent implements OnInit {
     private projectService: ProjectsService,
     private route: ActivatedRoute,
     private router: Router) { }
-  
-  get projectId() {
-    return this.project?.name.toLowerCase().replace(/ /g, '-');
-  }
   
   ngOnInit(): void {
     this.sub = this.route
@@ -40,6 +37,7 @@ export class AddResourceComponent implements OnInit {
   }
 
   public createResource() {
+    // TODO: Alerts
     const paper = {
       name: this.name,
       link: this.link,
@@ -56,5 +54,7 @@ export class AddResourceComponent implements OnInit {
       this.project.sections[sectionIdx].papers.push(paper);
     }
     this.projectService.saveProject(this.project);
+    this.router.navigate(['/project-view'], 
+        { queryParams: { 'project-id': this.project.projectId } })
   }
 }
