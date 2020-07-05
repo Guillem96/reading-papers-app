@@ -33,5 +33,5 @@
     </table>
   </div>
 
-  <a [routerLink]="['/add-resource']" [queryParams]="{ 'project-id': project.projectId }" class="btn btn-outline-primary">Add resource</a>
+  <button (click)="goToAddResource()" class="btn btn-outline-primary">Add resource</button>
 </div>

@@ -7,7 +7,7 @@
     <li class="list-group-item">4. Finally, If you are doing research on a specific field and you think that the math can be useful read and try to understand it </li>
   </ol>
   
-  <h2 class="display-4 mt-4 mb-4" >📖 How to gain knowledge about a specific field?</h2>
+  <h2 class="display-4 mt-4 mb-4" >📚 How to gain knowledge about a specific field?</h2>
   <ol class="list-group list-group-flush mb-4 pb-4">
     <li class="list-group-item">1. Assemble collections of resources that focus on the subject matter. Resources can come in the form of research papers, blog posts, videos, GitHub repository etc. When starting a new research topic, create a new <b>Project</b> in this web page below.</li>
     <li class="list-group-item">2. Evaluate each resource and decide if it is worth to study or not. Read or visualize each resource according to the above instructions and for each studied resource, add it to within a Project by clicking the <b>Add Paper</b> button inside a project.</li>
@@ -16,7 +16,13 @@
   </ol>
   
   <h1 class="display-4">✨ Projects</h1>
-  <div class="projects-container mt-4 row" style="width: 100%;">
-    <app-project-card [project]="p" style="width: 100%;" *ngFor="let p of projects"></app-project-card>
+  <div class="projects-container mt-4" style="width: 100%;">
+    <div class="row" *ngIf="projects.length > 0">
+      <app-project-card [project]="p" style="width: 100%;" *ngFor="let p of projects"></app-project-card>
+    </div>
+    <div *ngIf="projects.length === 0" class="text-center">
+      <h3 class="text-muted m-3">Wow! Such empty. Create your first project</h3>
+    </div>
+    <a [routerLink]="['/add-project']" class="btn btn-block btn-outline-primary mt-4">Add Project</a>
   </div>
 </div>

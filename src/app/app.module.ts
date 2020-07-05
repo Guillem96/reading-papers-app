@@ -9,6 +9,7 @@ import { ProjectCardComponent } from './project/project-list/project-card/projec
 import { ProjectDetailComponent } from './project/project-detail/project-detail.component';
 import { AddResourceComponent } from './project/project-detail/add-resource/add-resource.component';
 import { FormsModule } from '@angular/forms';
+import { CreateProjectComponent } from './project/create-project/create-project.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { FormsModule } from '@angular/forms';
     ProjectListComponent,
     ProjectCardComponent,
     ProjectDetailComponent,
-    AddResourceComponent
+    AddResourceComponent,
+    CreateProjectComponent
   ],
   imports: [
     BrowserModule,

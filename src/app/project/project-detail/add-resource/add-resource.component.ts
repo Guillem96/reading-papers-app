@@ -11,6 +11,8 @@ import { ProjectInfo } from 'src/app/models/project';
 export class AddResourceComponent implements OnInit {
 
   public project: ProjectInfo = null;
+  public projectId: ProjectInfo = null;
+
   public sections: string[] = [];
   private sub: any;
   public name: string;
@@ -26,7 +28,7 @@ export class AddResourceComponent implements OnInit {
     this.sub = this.route
       .queryParams
       .subscribe(params => {
-        console.log(params);
+        this.projectId = params['project-id'];
         this.project = this.projectService.getProjectData(params['project-id']);
         this.sections = this.project.sections.map(s => s.name);
       });
@@ -53,8 +55,9 @@ export class AddResourceComponent implements OnInit {
     } else {
       this.project.sections[sectionIdx].papers.push(paper);
     }
+    console.log(this.projectId);
     this.projectService.saveProject(this.project);
     this.router.navigate(['/project-view'], 
-        { queryParams: { 'project-id': this.project.projectId } })
+        { queryParams: { 'project-id': this.projectId } })
   }
 }

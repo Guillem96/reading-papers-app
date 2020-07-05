@@ -10,25 +10,35 @@ import { ProjectInfo } from 'src/app/models/project';
 })
 export class ProjectDetailComponent implements OnInit {
 
+  public projectId: string;
   public project: ProjectInfo = null;
   private sub: any;
 
   constructor(
     private projectService: ProjectsService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private router: Router) { }
   
   ngOnInit(): void {
     this.sub = this.route
       .queryParams
       .subscribe(params => {
+        this.projectId = params['project-id'];
         console.log(params);
-        this.project = this.projectService.getProjectData(params['project-id']);
+        this.project = this.projectService.getProjectData(this.projectId);
+        console.log(this.project);
       });
   }
 
   public getIndex(index) {
     return index;
   }
+
+  public goToAddResource() {
+    this.router.navigate(['/add-resource'], 
+        { queryParams: { 'project-id': this.projectId } })
+  }
+
   public deletePaper(paperPos:number, sectionPos: number) {  
     this.project.sections[sectionPos].papers.splice(paperPos, 1);
     if (this.project.sections[sectionPos].papers.length === 0) {

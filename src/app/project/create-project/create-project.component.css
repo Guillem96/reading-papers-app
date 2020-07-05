@@ -1,0 +1,12 @@
+.badge {
+    cursor: pointer;
+}
+
+.selected-tags {
+    width: 100%;
+    background-color: rgb(251, 251, 251);
+    border-radius: .5em;
+    border: 1px solid rgb(184, 184, 184);
+    height: 3em;
+    margin-bottom: 2em;
+}

@@ -1,9 +1,9 @@
-<div class="col-4">
+<div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
   <div class="card">
     <div class="card-body">
       <h5 class="card-title">{{project.name}}</h5>
       <h6 class="card-subtitle mb-2 text-muted">{{project.name}} Level of understanding</h6>
-      <a [routerLink]="['project-view']" [queryParams]="{ 'project-id': project.projectId }">View project</a>
+      <a [routerLink]="['project-view']" [queryParams]="{ 'project-id': project.projectId }" class="mr-2">View project</a>
       <a href="#" class="card-link danger">Delete Project</a>
     </div>
   </div>
