@@ -18,7 +18,7 @@
   <h1 class="display-4">✨ Projects</h1>
   <div class="projects-container mt-4" style="width: 100%;">
     <div class="row" *ngIf="projects.length > 0">
-      <app-project-card [project]="p" style="width: 100%;" *ngFor="let p of projects"></app-project-card>
+      <app-project-card [project]="p" class="mr-1 mb-1 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4" *ngFor="let p of projects"></app-project-card>
     </div>
     <div *ngIf="projects.length === 0" class="text-center">
       <h3 class="text-muted m-3">Wow! Such empty. Create your first project</h3>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectsService } from './../../../projects.service';
-import { ProjectInfo } from 'src/app/models/project';
+import { Project } from './../../../models/project';
 
 @Component({
   selector: 'app-add-resource',
@@ -10,8 +10,8 @@ import { ProjectInfo } from 'src/app/models/project';
 })
 export class AddResourceComponent implements OnInit {
 
-  public project: ProjectInfo = null;
-  public projectId: ProjectInfo = null;
+  public project: Project = null;
+  public projectId: string = null;
 
   public sections: string[] = [];
   private sub: any;

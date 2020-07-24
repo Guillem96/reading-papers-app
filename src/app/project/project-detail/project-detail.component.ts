@@ -1,7 +1,7 @@
 import { Component, OnInit  } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProjectsService } from 'src/app/projects.service';
-import { ProjectInfo } from 'src/app/models/project';
+import { ProjectsService } from './../../projects.service';
+import { Project } from './../../models/project';
 
 @Component({
   selector: 'app-project-detail',
@@ -11,7 +11,7 @@ import { ProjectInfo } from 'src/app/models/project';
 export class ProjectDetailComponent implements OnInit {
 
   public projectId: string;
-  public project: ProjectInfo = null;
+  public project: Project = null;
   private sub: any;
 
   constructor(
@@ -24,9 +24,7 @@ export class ProjectDetailComponent implements OnInit {
       .queryParams
       .subscribe(params => {
         this.projectId = params['project-id'];
-        console.log(params);
         this.project = this.projectService.getProjectData(this.projectId);
-        console.log(this.project);
       });
   }
 

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Project, ProjectInfo, Tag } from './models/project';
+import { Project, Tag } from './models/project';
+import { isNullOrUndefined } from 'util';
 
 @Injectable({
   providedIn: 'root'
@@ -8,39 +9,55 @@ export class ProjectsService {
 
   constructor() { }
 
-  public getProjects(): Project[] {
+  public getProjects(): Map<string, Project> {
     const projectsJSON = window.localStorage.getItem('projects');
-    return (JSON.parse(projectsJSON) || []).map(o => new Project(o));
+    const res = new Map<string, Project>();
+    
+    if (isNullOrUndefined(projectsJSON) || projectsJSON.trim() === '')
+      return res;
+    
+    const parsedPairs = new Map<string, any>(JSON.parse(projectsJSON));
+    
+    for (const [key, value] of parsedPairs) {
+      res.set(key, new Project(value));
+    }
+
+    return res;
   }
   
-  public saveProject(project: ProjectInfo) {
-    window.localStorage.setItem(project.projectId, 
-      JSON.stringify(project))
+  public saveProject(project: Project) {
+    const projects = this.getProjects();
+    projects.set(project.projectId, project);
+    const projectsJSON = JSON.stringify([...projects.entries()]);
+    window.localStorage.setItem('projects', projectsJSON);
   }
 
-  public getProjectData(projectId: string): ProjectInfo {
-    const projectJSON = window.localStorage.getItem(projectId);
-    return new ProjectInfo(JSON.parse(projectJSON));
+  public export(): string {
+    return '';
+  }
+
+  public import(projects: Project[]): void {
+  }
+  
+  public getProjectData(projectId: string): Project {
+    const projects = this.getProjects();
+    return projects.get(projectId);
   }
 
   public getAllTags(): Tag[] {
     const flatMap = (f, xs) => xs.reduce((acc,x) => acc.concat(f(x)), []);
 
-    const projects = this.getProjects();
+    const projects = this.getProjects().values();
     return [... new Set(flatMap(p => p.tags, projects))] as Tag[];
   }
 
   public createProject(project: Project) {
     const projects = this.getProjects();
-    const names = projects.map(p => p.name);
+    const names = [...projects.values()].map(p => p.name);
     if (names.includes(project.name)) {
       alert("Project " + project.name + " already exists");
       return;
     }
-    const projectInfo = new ProjectInfo({name: project.name, sections: []});
-    projects.push(project);
-    
-    this.saveProject(projectInfo);
-    window.localStorage.setItem('projects', JSON.stringify(projects));
+    this.saveProject(project);
   }
 }
