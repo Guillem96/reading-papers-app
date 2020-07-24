@@ -28,15 +28,28 @@ export class ProjectsService {
   public saveProject(project: Project) {
     const projects = this.getProjects();
     projects.set(project.projectId, project);
+    this.save(projects);
+  }
+
+  private save(projects: Map<string, Project>): void {
     const projectsJSON = JSON.stringify([...projects.entries()]);
     window.localStorage.setItem('projects', projectsJSON);
   }
 
-  public export(): string {
-    return '';
+  public export(): void {
+    const projectsJSON = JSON.stringify([...this.getProjects().entries()]);
+    var element = document.createElement('a');
+    element.setAttribute(
+      'href', "data:text/json;charset=UTF-8," + encodeURIComponent(projectsJSON));
+    element.setAttribute('download', "exported-projects.json");
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
   }
 
   public import(projects: Project[]): void {
+    
   }
   
   public getProjectData(projectId: string): Project {
@@ -59,5 +72,11 @@ export class ProjectsService {
       return;
     }
     this.saveProject(project);
+  }
+
+  public deleteProject(projectId: string): void {
+    const projects = this.getProjects();
+    projects.delete(projectId);
+    this.save(projects);
   }
 }

@@ -1,8 +1,9 @@
   <div class="card">
-    <div class="card-body">
+    <div class="card-body" id="project-card-{{project?.projectId}}">
       <h5 class="card-title">{{project.name}}</h5>
       <h6 class="card-subtitle mb-2 text-muted">{{project.name}} Level of understanding</h6>
       <a [routerLink]="['project-view']" [queryParams]="{ 'project-id': project.projectId }" class="mr-2">View project</a>
-      <a href="#" class="card-link danger">Delete Project</a>
+      <a href="#project-card-{{project?.projectId}}" 
+        (click)="deleteClick.emit()" class="card-link danger">Delete Project</a>
     </div>
   </div>

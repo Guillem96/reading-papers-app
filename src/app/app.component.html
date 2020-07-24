@@ -2,6 +2,15 @@
   <a class="navbar-brand" [routerLink]="['/']">
     <i class="mr-2 fas fa-brain" style="font-size: 1.4em; color:gray"></i> Papers understanding level
   </a>
+  <form class="form-inline">
+    <button class="btn btn-sm btn-outline-secondary my-2 my-sm-0" 
+        data-placement="bottom" 
+        (click)="projectService.export()"
+        title="This will download all your projects information">
+      <i class="fas fa-file-export"></i> Export
+    </button>
+    <button class="btn btn-sm btn-outline-secondary ml-4 my-2 my-sm-0"><i class="fas fa-file-import"></i> Import</button>
+  </form>
 </nav>
 
 <router-outlet></router-outlet>

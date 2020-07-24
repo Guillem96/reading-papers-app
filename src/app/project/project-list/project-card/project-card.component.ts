@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Project } from './../../../models/project';
 
 @Component({
@@ -9,7 +9,8 @@ import { Project } from './../../../models/project';
 export class ProjectCardComponent implements OnInit {
 
   @Input() public project: Project;
-
+  @Output() public deleteClick = new EventEmitter();
+  
   constructor() { }
 
   ngOnInit(): void {
