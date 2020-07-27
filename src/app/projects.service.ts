@@ -48,10 +48,21 @@ export class ProjectsService {
     document.body.removeChild(element);
   }
 
-  public import(projects: Project[]): void {
-    
+  public import(file: File): void {
+    let fileReader = new FileReader();
+    fileReader.onload = (e) => {
+      const currentProjects = this.getProjects();
+      const content = JSON.parse(fileReader.result.toString());
+      const parsedPairs = new Map<string, any>(content);
+      for (const [key, value] of parsedPairs) {
+        currentProjects.set(key, new Project(value));
+      }
+      this.save(currentProjects);
+    }
+    fileReader.readAsText(file);
+    window.location.reload();
   }
-  
+
   public getProjectData(projectId: string): Project {
     const projects = this.getProjects();
     return projects.get(projectId);
